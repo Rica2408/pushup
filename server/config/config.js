@@ -16,11 +16,12 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
 
 let urlDB;
 
-// if ( process.env.NODE_ENV === 'dev'){
-//     urlDB = 'mongodb://localhost:27017/exercise'
-// }
-// else{
-    urlDB =  'mongodb+srv://richie2408:or2ZUWf5a0ZzLVCm@cluster0-du9tx.mongodb.net/exercise?retryWrites=true&w=majority';
-//}
+if ( process.env.NODE_ENV === 'dev'){
+    urlDB = 'mongodb://localhost:27017/exercise'
+}
+else{
+    urlDB =  process.env.MONGO_URI;
+}
 
 process.env.URLDB = urlDB;
+
