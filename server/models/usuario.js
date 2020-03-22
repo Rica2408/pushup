@@ -8,18 +8,26 @@ let usuarioSchema = new Schema({
         type: String,
         required: [true, 'Name is necesary'],
     },
+    email:{
+        type: String,
+        required: [true, 'Mail is necesary'],
+    },
     age:{
         type: String,
-        required: [true, 'Age is necesary'],
+        required: false,
     },
     userName:{
         type: String,
         unique: true,
-        required: [true, 'Username is necesary'],
+        required: false,
     },
     password:{
         type: String,
         required: [true, 'Username is necesary'],
+    },
+    img:{
+        type: String,
+        required: false,
     },
     weight:{
         type: String,

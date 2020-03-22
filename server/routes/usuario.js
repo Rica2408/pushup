@@ -2,8 +2,10 @@ const express = require('express');
 const Usuario = require('../models/usuario');
 const app = express();
 const bcrypt = require('bcrypt');
+const { verificaToken } = require('../middlewares/autenticacion');
 
-app.get('/usuario', function (req, res) {
+
+app.get('/usuario', verificaToken ,(req, res) => {
     
     let desde = req.query.desde || 0;
     let limite = req.query.limite || 5;
@@ -29,7 +31,7 @@ app.get('/usuario', function (req, res) {
         })
 });
  
-app.post('/usuario', function (req, res) {
+app.post('/usuario',verificaToken, (req, res) => {
     let body = req.body;
 
     let usuario = new Usuario({
@@ -37,6 +39,7 @@ app.post('/usuario', function (req, res) {
         age: body.age,
         userName: body.userName,
         password: bcrypt.hashSync(body.password,10),
+        email: body.email,
     });
 
     usuario.save((err, usuarioDB) => {
@@ -86,7 +89,7 @@ app.post('/usuario', function (req, res) {
 //---------------------
 // CAMBIAR UN ESTADO
 //---------------------
-app.delete('/usuario/:id', function (req, res) {
+app.delete('/usuario/:id', verificaToken, (req, res) => {
     let id = req.params.id;
 
     let changeAge = {
